@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wealth Mobile — Prototype</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="canvas">
+    <div class="device" role="region" aria-label="Mobile Screen">
+      <!-- Status bar -->
+      <div class="status-bar">
+        <span>9:41</span>
+        <span class="status-icons">
+          <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true">
+            <rect x="0" y="7" width="2.5" height="3" rx="0.5" fill="#111E2E"/>
+            <rect x="4" y="5" width="2.5" height="5" rx="0.5" fill="#111E2E"/>
+            <rect x="8" y="3" width="2.5" height="7" rx="0.5" fill="#111E2E"/>
+            <rect x="12" y="0" width="2.5" height="10" rx="0.5" fill="#111E2E"/>
+          </svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none" aria-hidden="true">
+            <path d="M8 10.2a1 1 0 100-2 1 1 0 000 2zM3.5 6.2a6.4 6.4 0 019 0l-1.4 1.4a4.4 4.4 0 00-6.2 0L3.5 6.2zM.7 3.5a10.4 10.4 0 0114.6 0l-1.4 1.4a8.4 8.4 0 00-11.8 0L.7 3.5z" fill="#111E2E"/>
+          </svg>
+          <svg width="24" height="11" viewBox="0 0 24 11" fill="none" aria-hidden="true">
+            <rect x="0.5" y="0.5" width="20" height="10" rx="2" stroke="#111E2E" opacity="0.5"/>
+            <rect x="2" y="2" width="16" height="7" rx="1" fill="#111E2E"/>
+            <rect x="21.5" y="3.5" width="1.5" height="4" rx="0.5" fill="#111E2E" opacity="0.5"/>
+          </svg>
+        </span>
+      </div>
+
+      <!-- ORDER SCREEN -->
+      <section id="screen-home" class="screen screen-order">
+
+        <!-- Header -->
+        <div class="order-header">
+          <div class="order-nav">
+            <button class="order-back" type="button" aria-label="Back">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6"/>
+              </svg>
+            </button>
+            <span class="order-ticker">TSLA</span>
+            <span class="order-nav-sep">·</span>
+            <span class="order-exchange">
+              <span class="order-exchange-flag" aria-hidden="true">🇸🇬</span>
+              SGX
+            </span>
+            <span class="order-market-status" aria-label="Market open">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="4" fill="currentColor"/>
+                <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="order-price-row">
+            <span class="order-price-main">4,523.75</span>
+            <span class="order-price-currency">SGD</span>
+            <span class="order-last-updated">
+              Last updated at 2:15 PM
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-.48-7.5"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Market / Limit tabs -->
+        <nav id="order-tv" class="tabVariant" aria-label="Order type">
+          <svg class="tabVariant-svg" viewBox="0 0 400 35" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path class="tabVariant-path"/>
+          </svg>
+          <div class="tabVariant-tabs">
+            <button class="tabVariant-item tabVariant-item--active" type="button" data-tv-index="0">Market</button>
+            <button class="tabVariant-item" type="button" data-tv-index="1">Limit</button>
+          </div>
+        </nav>
+
+        <!-- Body -->
+        <div class="order-body">
+          <p class="order-qty-label">Quantity</p>
+          <div class="order-qty-field inputField inputField--amount inputField--focus">
+            <div class="inputField-box">
+              <button class="inputField-stepper inputField-stepper--dec" type="button" aria-label="Decrease" id="order-dec">
+                <svg width="14" height="2" viewBox="0 0 14 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="13" y2="1"/></svg>
+              </button>
+              <input id="order-qty-input" class="inputField-input" type="text" value="999" inputmode="numeric" aria-label="Quantity"/>
+              <button class="inputField-stepper inputField-stepper--inc" type="button" aria-label="Increase" id="order-inc">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="order-footer">
+          <div class="order-balance-bar">
+            <span>Cur. Bal. : USD <strong class="order-balance-amount">12,87,012</strong></span>
+            <button class="order-use-max" type="button">Use Max</button>
+          </div>
+          <div class="order-action-bar">
+            <div class="order-est-total">
+              <p class="order-est-label">Est. Total (USD)</p>
+              <div class="order-est-value">
+                <span class="order-est-number" id="order-est-total">394,974</span>
+                <span class="order-est-chevron" aria-hidden="true">›</span>
+              </div>
+            </div>
+            <button class="cta-btn cta-btn--primary cta-btn--lg order-buy-btn" type="button">Buy Now</button>
+          </div>
+        </footer>
+
+      </section>
+    </div>
+
+    <!-- DESIGN SYSTEM (transparent layout) -->
+    <section id="screen-ds" class="ds-container hidden" aria-hidden="true">
+      <header class="ds-header">
+        <button class="icon-btn" id="back-btn" aria-label="Back to home">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <h1>Design System</h1>
+      </header>
+
+      <div id="panel-base" class="ds-panel hidden">
+        <button id="base-back-btn" class="ds-base-back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Components
+        </button>
+        <div class="ds-scroll">
+          <div class="section">
+            <h2 class="section-title">Colors</h2>
+            <div id="colors-grid" class="swatch-grid"></div>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Typography</h2>
+            <div id="typography-list"></div>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Spacing</h2>
+            <div id="spacing-list"></div>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Radius</h2>
+            <div id="radius-grid" class="radius-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-components" class="ds-panel">
+        <div class="ds-layout">
+          <nav class="ds-sidebar" aria-label="Component navigation">
+            <p class="ds-sidebar-heading">Components</p>
+            <ul class="ds-sidebar-list">
+              <li><a class="ds-sidebar-link" href="#section-tabvariant">Tab variant</a></li>
+              <li><a class="ds-sidebar-link" href="#section-statbox">Stat box</a></li>
+              <li><a class="ds-sidebar-link" href="#section-statuspill">Status pill</a></li>
+              <li><a class="ds-sidebar-link" href="#section-infobanner">Info banner</a></li>
+              <li><a class="ds-sidebar-link" href="#section-kv">Key value row</a></li>
+              <li><a class="ds-sidebar-link" href="#section-dli">Detail list item</a></li>
+              <li><a class="ds-sidebar-link" href="#section-listitem">List item</a></li>
+              <li><a class="ds-sidebar-link" href="#section-radiolistitem">Radio list item</a></li>
+              <li><a class="ds-sidebar-link" href="#section-checkboxlistitem">Checkbox list item</a></li>
+              <li><a class="ds-sidebar-link" href="#section-inputfield">Input field</a></li>
+              <li><a class="ds-sidebar-link" href="#section-dropdownfield">Dropdown field</a></li>
+              <li><a class="ds-sidebar-link" href="#section-searchfield">Search field</a></li>
+              <li><a class="ds-sidebar-link" href="#section-textboxfield">Textbox field</a></li>
+              <li><a class="ds-sidebar-link" href="#section-ctabtn">CTA button</a></li>
+              <li><a class="ds-sidebar-link" href="#section-collapsible">Collapsible section</a></li>
+            </ul>
+            <div class="ds-sidebar-divider"></div>
+            <a id="sidebar-base-link" class="ds-sidebar-link ds-sidebar-link--base" href="#">Base</a>
+          </nav>
+          <div class="ds-main">
+          <!-- TabVariant -->
+          <div id="section-tabvariant" class="section">
+            <h2 class="section-title">Tab variant</h2>
+
+            <div class="component-card statbox-playground" style="grid-column:1/-1;">
+              <div class="statbox-preview-wrap" style="align-items:center;min-height:auto;padding:var(--sp-20);">
+                <nav id="tv-preview" class="tabVariant ds-component-preview--list" aria-label="Order type tabs">
+                  <svg class="tabVariant-svg" viewBox="0 0 400 35" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path class="tabVariant-path" id="tv-path"/>
+                  </svg>
+                  <div class="tabVariant-tabs">
+                    <button class="tabVariant-item tabVariant-item--active" type="button" data-tv-index="0">Market</button>
+                    <button class="tabVariant-item" type="button" data-tv-index="1">Limit</button>
+                  </div>
+                </nav>
+              </div>
+            </div>
+
+          </div><!-- /section TabVariant -->
+
+          <div id="section-statbox" class="section">
+            <h2 class="section-title">Stat box</h2>
+            <div class="component-card statbox-playground">
+              <div class="statbox-controls">
+                <div class="statbox-control-group">
+                  <p class="component-title">Size</p>
+                  <div class="mini-tabs" role="tablist" aria-label="StatBox size">
+                    <button class="mini-tab is-active" id="statbox-size-small" type="button" data-statbox-size="small">Small</button>
+                    <button class="mini-tab" id="statbox-size-medium" type="button" data-statbox-size="medium">Medium</button>
+                    <button class="mini-tab" id="statbox-size-large" type="button" data-statbox-size="large">Large</button>
+                  </div>
+                </div>
+
+                <div class="statbox-control-group">
+                  <p class="component-title">Alignment</p>
+                  <div class="mini-tabs" role="tablist" aria-label="StatBox alignment">
+                    <button class="mini-tab is-active" id="statbox-align-left" type="button" data-statbox-align="left">Left</button>
+                    <button class="mini-tab" id="statbox-align-center" type="button" data-statbox-align="center">Center</button>
+                    <button class="mini-tab" id="statbox-align-right" type="button" data-statbox-align="right">Right</button>
+                  </div>
+                </div>
+
+                <label class="toggle-row" for="statbox-frequency-toggle">
+                  <span class="component-title">Optional text</span>
+                  <input id="statbox-frequency-toggle" type="checkbox" aria-label="Toggle optional frequency line" />
+                </label>
+              </div>
+
+              <div class="statbox-preview-wrap">
+                <div id="statbox-preview" class="statBox statBox--small">
+                  <p class="label">Trade date</p>
+                  <p class="value" id="statbox-value">09 Apr '26</p>
+                  <p class="supportingText hidden" id="statbox-frequency"><span class="supportingText-label">Freq: </span>Monthly</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="section-statuspill" class="section">
+            <h2 class="section-title">Status pill</h2>
+            <div class="component-card">
+              <div class="statbox-controls">
+                <div class="statbox-control-group">
+                  <p class="component-title">Size</p>
+                  <div class="mini-tabs" role="tablist" aria-label="StatusPill size">
+                    <button class="mini-tab is-active" type="button" data-pill-size="md">MD</button>
+                    <button class="mini-tab" type="button" data-pill-size="sm">SM</button>
+                  </div>
+                </div>
+                <div class="statbox-control-group">
+                  <p class="component-title">Tone</p>
+                  <div class="mini-tabs" role="tablist" aria-label="StatusPill tone">
+                    <button class="mini-tab is-active" type="button" data-pill-tone="danger">Danger</button>
+                    <button class="mini-tab" type="button" data-pill-tone="success">Success</button>
+                    <button class="mini-tab" type="button" data-pill-tone="neutral">Neutral</button>
+                  </div>
+                </div>
+              </div>
+              <div class="statbox-preview-wrap">
+                <span id="pill-preview" class="statusPill statusPill--danger statusPill--md">KI Breached</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="section-infobanner" class="section">
+            <h2 class="section-title">Info banner</h2>
+            <div class="component-card">
+              <div class="statbox-controls">
+                <div class="statbox-control-group">
+                  <p class="component-title">Tone</p>
+                  <div class="mini-tabs" role="tablist" aria-label="InfoBanner tone">
+                    <button class="mini-tab is-active" type="button" data-banner-tone="info">Info</button>
+                    <button class="mini-tab" type="button" data-banner-tone="warning">Warning</button>
+                    <button class="mini-tab" type="button" data-banner-tone="success">Success</button>
+                    <button class="mini-tab" type="button" data-banner-tone="danger">Danger</button>
+                  </div>
+                </div>
+              </div>
+              <div class="statbox-preview-wrap">
+                <div id="banner-preview" class="infoBanner infoBanner--info">
+                  <svg class="infoBanner-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M12 8h.01M11 12h1v5h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <p class="infoBanner-text" id="banner-preview-text">AAPL closed below the strike at maturity, so principal is being delivered in shares.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MetricAmount section hidden for now
+          <div id="section-metricamount" class="section">
+            <h2 class="section-title">Metric amount</h2>
+            <div class="component-card">
+              <div class="statbox-controls">
+                <div class="statbox-control-group">
+                  <p class="component-title">Size</p>
+                  <div class="mini-tabs" role="tablist" aria-label="MetricAmount size">
+                    <button class="mini-tab is-active" type="button" data-amount-size="display">Display</button>
+                    <button class="mini-tab" type="button" data-amount-size="body">Body</button>
+                  </div>
+                </div>
+                <div class="statbox-control-group">
+                  <p class="component-title">Tone</p>
+                  <div class="mini-tabs" role="tablist" aria-label="MetricAmount tone">
+                    <button class="mini-tab is-active" type="button" data-amount-tone="default">Default</button>
+                    <button class="mini-tab" type="button" data-amount-tone="danger">Danger</button>
+                    <button class="mini-tab" type="button" data-amount-tone="success">Success</button>
+                  </div>
+                </div>
+              </div>
+              <div class="statbox-preview-wrap">
+                <span id="amount-preview" class="metricAmount metricAmount--display"><span class="metricAmount-currency">USD</span><span class="metricAmount-value">403K</span></span>
+              </div>
+            </div>
+          </div>
+          -->
+
+          <div id="section-kv" class="section">
+            <h2 class="section-title">Key value row</h2>
+            <div class="component-card">
+              <div class="statbox-controls">
+                <label class="toggle-row" for="kv-divider-toggle">
+                  <span class="component-title">Divider</span>
+                  <input id="kv-divider-toggle" type="checkbox" aria-label="Toggle row divider" />
+                </label>
+                <label class="toggle-row" for="kv-key-info-toggle">
+                  <span class="component-title">Info icon</span>
+                  <input id="kv-key-info-toggle" type="checkbox" aria-label="Toggle info icon after key" />
+                </label>
+                <label class="toggle-row" for="kv-chevron-toggle">
+                  <span class="component-title">Chevron</span>
+                  <input id="kv-chevron-toggle" type="checkbox" aria-label="Toggle chevron after value" />
+                </label>
+              </div>
+              <div class="statbox-preview-wrap keyValue-preview-wrap ds-component-preview--list">
+                <div id="kv-preview" class="keyValueRow">
+                  <div class="keyValueRow-keyGroup">
+                    <p class="keyValueRow-key">Coupon Frequency</p>
+                    <span id="kv-preview-key-info" class="keyValueRow-keyInfo hidden" aria-hidden="true">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M12 8h.01M11 12h1v5h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="keyValueRow-valueGroup">
+                    <p class="keyValueRow-value">Monthly</p>
+                    <span id="kv-preview-chevron" class="keyValueRow-chevron hidden" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="section-dli" class="section">
+            <h2 class="section-title">Detail list item</h2>
+            <div class="component-card">
+              <div class="statbox-controls">
+                <div class="statbox-control-group">
+                  <p class="component-title">Density</p>
+                  <div class="mini-tabs" role="tablist" aria-label="DetailListItem density">
+                    <button class="mini-tab is-active" type="button" data-dli-density="regular">Regular</button>
+                    <button class="mini-tab" type="button" data-dli-density="compact">Compact</button>
+                  </div>
+                </div>
+                <div class="statbox-control-group">
+                  <p class="component-title">Trailing mode</p>
+                  <div class="mini-tabs" role="tablist" aria-label="DetailListItem trailing mode">
+                    <button class="mini-tab is-active" type="button" data-dli-trailing="metric">Metric amount</button>
+                    <button class="mini-tab" type="button" data-dli-trailing="text">Text</button>
+                  </div>
+                </div>
+                <label class="toggle-row" for="dli-leading-toggle">
+                  <span class="component-title">Leading icon</span>
+                  <input id="dli-leading-toggle" type="checkbox" aria-label="Toggle 40px leading icon" />
+                </label>
+                <label class="toggle-row" for="dli-title-info-toggle">
+                  <span class="component-title">Info icon</span>
+                  <input id="dli-title-info-toggle" type="checkbox" aria-label="Toggle info icon after title" />
+                </label>
+                <label class="toggle-row" for="dli-support-toggle">
+                  <span class="component-title">Supporting text</span>
+                  <input id="dli-support-toggle" type="checkbox" checked aria-label="Toggle supporting text" />
+                </label>
+                <label class="toggle-row" for="dli-chevron-toggle">
+                  <span class="component-title">Chevron</span>
+                  <input id="dli-chevron-toggle" type="checkbox" aria-label="Toggle trailing chevron" />
+                </label>
+              </div>
+              <div class="statbox-preview-wrap keyValue-preview-wrap ds-component-preview--list">
+                <div id="dli-preview" class="detailListItem">
+                  <div id="dli-preview-leading-slot" class="detailListItem-leadingSlot hidden">
+                    <svg class="detailListItem-leadingIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M4 19h16M7 15v4M12 11v8M17 7v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="detailListItem-content">
+                    <p class="detailListItem-title">
+                      Coupons received
+                      <span id="dli-preview-title-info" class="detailListItem-titleInfo hidden" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+                          <path d="M12 8h.01M11 12h1v5h1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                    </p>
+                    <p class="detailListItem-supportingText" id="dli-preview-support">6 of 6 · USD 4,030 each</p>
+                  </div>
+                  <div class="detailListItem-trailingGroup">
+                    <span id="dli-preview-metric" class="metricAmount metricAmount--body"><span class="metricAmount-currency">USD</span><span class="metricAmount-value">24.2K</span></span>
+                    <span id="dli-preview-text" class="detailListItem-trailing hidden">24.2K</span>
+                    <span id="dli-preview-chevron" class="detailListItem-chevron hidden" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ListItem -->
+          <div id="section-listitem" class="section">
+            <h2 class="section-title">List item</h2>
+
+            <div class="component-card statbox-playground" style="grid-column:1/-1;">
+              <div class="statbox-controls">
+
+                <label class="toggle-row" for="li-leading-toggle">
+                  <span class="component-title">Leading icon</span>
+                  <input id="li-leading-toggle" type="checkbox" checked aria-label="Show leading icon" />
+                </label>
+                <label class="toggle-row" for="li-trailing-toggle">
+                  <span class="component-title">Trailing chevron</span>
+                  <input id="li-trailing-toggle" type="checkbox" checked aria-label="Show trailing chevron" />
+                </label>
+                <label class="toggle-row" for="li-divider-toggle">
+                  <span class="component-title">Divider</span>
+                  <input id="li-divider-toggle" type="checkbox" checked aria-label="Show divider" />
+                </label>
+
+              </div>
+
+              <div class="statbox-preview-wrap" style="align-items:flex-start;min-height:auto;padding:var(--sp-16) var(--sp-16) 0;">
+                <div class="ds-component-preview--list" style="width:100%;" id="li-preview-list">
+
+                  <!-- Item 1 -->
+                  <div class="listItem listItem--divider" id="li-item-1">
+                    <div class="listItem-leading" id="li-leading-1">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:var(--border-accent)"><path d="M10.999 17H12.999V11H10.999V17ZM11.999 9C12.2824 9 12.5199 8.90417 12.7115 8.7125C12.9032 8.52083 12.999 8.28333 12.999 8C12.999 7.71667 12.9032 7.47917 12.7115 7.2875C12.5199 7.09583 12.2824 7 11.999 7C11.7157 7 11.4782 7.09583 11.2865 7.2875C11.0949 7.47917 10.999 7.71667 10.999 8C10.999 8.28333 11.0949 8.52083 11.2865 8.7125C11.4782 8.90417 11.7157 9 11.999 9ZM11.999 22C10.6157 22 9.31569 21.7375 8.09902 21.2125C6.88236 20.6875 5.82402 19.975 4.92402 19.075C4.02402 18.175 3.31152 17.1167 2.78652 15.9C2.26152 14.6833 1.99902 13.3833 1.99902 12C1.99902 10.6167 2.26152 9.31667 2.78652 8.1C3.31152 6.88333 4.02402 5.825 4.92402 4.925C5.82402 4.025 6.88236 3.3125 8.09902 2.7875C9.31569 2.2625 10.6157 2 11.999 2C13.3824 2 14.6824 2.2625 15.899 2.7875C17.1157 3.3125 18.174 4.025 19.074 4.925C19.974 5.825 20.6865 6.88333 21.2115 8.1C21.7365 9.31667 21.999 10.6167 21.999 12C21.999 13.3833 21.7365 14.6833 21.2115 15.9C20.6865 17.1167 19.974 18.175 19.074 19.075C18.174 19.975 17.1157 20.6875 15.899 21.2125C14.6824 21.7375 13.3824 22 11.999 22Z" fill="currentColor"/></svg>
+                    </div>
+                    <p class="listItem-label">Belgium</p>
+                    <span class="listItem-trailing" id="li-trailing-1" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7.28789 5.4L8.71289 4L16.7129 12L8.71289 20L7.28789 18.6L13.8888 12L7.28789 5.4Z" fill="currentColor"/></svg>
+                    </span>
+                  </div>
+
+                  <!-- Item 2 -->
+                  <div class="listItem listItem--divider" id="li-item-2">
+                    <div class="listItem-leading" id="li-leading-2">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:var(--text-green)"><path d="M10.999 17H12.999V11H10.999V17ZM11.999 9C12.2824 9 12.5199 8.90417 12.7115 8.7125C12.9032 8.52083 12.999 8.28333 12.999 8C12.999 7.71667 12.9032 7.47917 12.7115 7.2875C12.5199 7.09583 12.2824 7 11.999 7C11.7157 7 11.4782 7.09583 11.2865 7.2875C11.0949 7.47917 10.999 7.71667 10.999 8C10.999 8.28333 11.0949 8.52083 11.2865 8.7125C11.4782 8.90417 11.7157 9 11.999 9ZM11.999 22C10.6157 22 9.31569 21.7375 8.09902 21.2125C6.88236 20.6875 5.82402 19.975 4.92402 19.075C4.02402 18.175 3.31152 17.1167 2.78652 15.9C2.26152 14.6833 1.99902 13.3833 1.99902 12C1.99902 10.6167 2.26152 9.31667 2.78652 8.1C3.31152 6.88333 4.02402 5.825 4.92402 4.925C5.82402 4.025 6.88236 3.3125 8.09902 2.7875C9.31569 2.2625 10.6157 2 11.999 2C13.3824 2 14.6824 2.2625 15.899 2.7875C17.1157 3.3125 18.174 4.025 19.074 4.925C19.974 5.825 20.6865 6.88333 21.2115 8.1C21.7365 9.31667 21.999 10.6167 21.999 12C21.999 13.3833 21.7365 14.6833 21.2115 15.9C20.6865 17.1167 19.974 18.175 19.074 19.075C18.174 19.975 17.1157 20.6875 15.899 21.2125C14.6824 21.7375 13.3824 22 11.999 22Z" fill="currentColor"/></svg>
+                    </div>
+                    <p class="listItem-label">Germany</p>
+                    <span class="listItem-trailing" id="li-trailing-2" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7.28789 5.4L8.71289 4L16.7129 12L8.71289 20L7.28789 18.6L13.8888 12L7.28789 5.4Z" fill="currentColor"/></svg>
+                    </span>
+                  </div>
+
+                  <!-- Item 3 (no divider on last) -->
+                  <div class="listItem" id="li-item-3">
+                    <div class="listItem-leading" id="li-leading-3">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="color:var(--text-red)"><path d="M10.999 17H12.999V11H10.999V17ZM11.999 9C12.2824 9 12.5199 8.90417 12.7115 8.7125C12.9032 8.52083 12.999 8.28333 12.999 8C12.999 7.71667 12.9032 7.47917 12.7115 7.2875C12.5199 7.09583 12.2824 7 11.999 7C11.7157 7 11.4782 7.09583 11.2865 7.2875C11.0949 7.47917 10.999 7.71667 10.999 8C10.999 8.28333 11.0949 8.52083 11.2865 8.7125C11.4782 8.90417 11.7157 9 11.999 9ZM11.999 22C10.6157 22 9.31569 21.7375 8.09902 21.2125C6.88236 20.6875 5.82402 19.975 4.92402 19.075C4.02402 18.175 3.31152 17.1167 2.78652 15.9C2.26152 14.6833 1.99902 13.3833 1.99902 12C1.99902 10.6167 2.26152 9.31667 2.78652 8.1C3.31152 6.88333 4.02402 5.825 4.92402 4.925C5.82402 4.025 6.88236 3.3125 8.09902 2.7875C9.31569 2.2625 10.6157 2 11.999 2C13.3824 2 14.6824 2.2625 15.899 2.7875C17.1157 3.3125 18.174 4.025 19.074 4.925C19.974 5.825 20.6865 6.88333 21.2115 8.1C21.7365 9.31667 21.999 10.6167 21.999 12C21.999 13.3833 21.7365 14.6833 21.2115 15.9C20.6865 17.1167 19.974 18.175 19.074 19.075C18.174 19.975 17.1157 20.6875 15.899 21.2125C14.6824 21.7375 13.3824 22 11.999 22Z" fill="currentColor"/></svg>
+                    </div>
+                    <p class="listItem-label">France</p>
+                    <span class="listItem-trailing" id="li-trailing-3" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7.28789 5.4L8.71289 4L16.7129 12L8.71289 20L7.28789 18.6L13.8888 12L7.28789 5.4Z" fill="currentColor"/></svg>
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /section ListItem -->
+
+          <!-- RadioListItem -->
+          <div id="section-radiolistitem" class="section">
+            <h2 class="section-title">Radio list item</h2>
+
+            <div class="component-card statbox-playground" style="grid-column:1/-1;">
+              <div class="statbox-controls">
+                <label class="toggle-row" for="rli-divider-toggle">
+                  <span class="component-title">Divider</span>
+                  <input id="rli-divider-toggle" type="checkbox" checked aria-label="Show divider" />
+                </label>
+              </div>
+
+              <div class="statbox-preview-wrap" style="align-items:flex-start;min-height:auto;padding:var(--sp-16) var(--sp-16) 0;">
+                <div class="ds-component-preview--list" style="width:100%;" id="rli-preview-list">
+
+                  <div class="radioListItem radioListItem--divider" id="rli-item-1">
+                    <p class="radioListItem-label">Monthly coupon</p>
+                    <span class="radioListItem-radio" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle class="radio-track" cx="10" cy="10" r="8.5"/>
+                        <circle class="radio-dot" cx="10" cy="10" r="3.5"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="radioListItem radioListItem--selected radioListItem--divider" id="rli-item-2">
+                    <p class="radioListItem-label">Quarterly coupon</p>
+                    <span class="radioListItem-radio" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle class="radio-track" cx="10" cy="10" r="8.5"/>
+                        <circle class="radio-dot" cx="10" cy="10" r="3.5"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="radioListItem" id="rli-item-3">
+                    <p class="radioListItem-label">Annual coupon</p>
+                    <span class="radioListItem-radio" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle class="radio-track" cx="10" cy="10" r="8.5"/>
+                        <circle class="radio-dot" cx="10" cy="10" r="3.5"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /section RadioListItem -->
+
+          <!-- CheckboxListItem -->
+          <div id="section-checkboxlistitem" class="section">
+            <h2 class="section-title">Checkbox list item</h2>
+
+            <div class="component-card statbox-playground" style="grid-column:1/-1;">
+              <div class="statbox-controls">
+                <label class="toggle-row" for="cli-divider-toggle">
+                  <span class="component-title">Divider</span>
+                  <input id="cli-divider-toggle" type="checkbox" checked aria-label="Show divider" />
+                </label>
+              </div>
+
+              <div class="statbox-preview-wrap" style="align-items:flex-start;min-height:auto;padding:var(--sp-16) var(--sp-16) 0;">
+                <div class="ds-component-preview--list" style="width:100%;" id="cli-preview-list">
+
+                  <div class="checkboxListItem checkboxListItem--selected checkboxListItem--divider" id="cli-item-1">
+                    <p class="checkboxListItem-label">AAPL — Apple Inc.</p>
+                    <span class="checkboxListItem-checkbox" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <rect class="checkbox-box" x="1.5" y="1.5" width="17" height="17" rx="4"/>
+                        <path class="checkbox-check" d="M4.5 10L8 13.5L15.5 6"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="checkboxListItem checkboxListItem--divider" id="cli-item-2">
+                    <p class="checkboxListItem-label">GOOGL — Alphabet Inc.</p>
+                    <span class="checkboxListItem-checkbox" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <rect class="checkbox-box" x="1.5" y="1.5" width="17" height="17" rx="4"/>
+                        <path class="checkbox-check" d="M4.5 10L8 13.5L15.5 6"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                  <div class="checkboxListItem checkboxListItem--selected" id="cli-item-3">
+                    <p class="checkboxListItem-label">MSFT — Microsoft Corp.</p>
+                    <span class="checkboxListItem-checkbox" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <rect class="checkbox-box" x="1.5" y="1.5" width="17" height="17" rx="4"/>
+                        <path class="checkbox-check" d="M4.5 10L8 13.5L15.5 6"/>
+                      </svg>
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /section CheckboxListItem -->
+
+          <!-- InputField -->
+          <div id="section-inputfield" class="section">
+            <h2 class="section-title">Input field</h2>
+
+            <div class="component-card statbox-playground" style="grid-column:1/-1;">
+              <!-- Controls -->
+              <div class="statbox-controls">
+
+                <!-- State dropdown -->
+                <div class="statbox-control-group">
+                  <p class="component-title">State</p>
+                  <select id="if-state-select" class="ds-select" aria-label="Input state">
+                    <option value="default">Default</option>
+                    <option value="focus">Focus</option>
+                    <option value="filled">Filled</option>
+                    <option value="error">Filled Error</option>
+                    <option value="focus-error">Focus Error</option>
+                    <option value="disabled">Disabled</option>
+                  </select>
+                </div>
+
+                <!-- Input type tabs -->
+                <div class="statbox-control-group">
+                  <p class="component-title">Input type</p>
+                  <div class="mini-tabs">
+                    <button class="mini-tab is-active" type="button" data-if-type="string">String</button>
+                    <button class="mini-tab" type="button" data-if-type="amount">Amount</button>
+                  </div>
+                </div>
+
+                <!-- Toggles -->
+                <label class="toggle-row" for="if-optional-toggle">
+                  <span class="component-title">Show Optional</span>
+                  <input id="if-optional-toggle" type="checkbox" aria-label="Show optional text" />
+                </label>
+                <label class="toggle-row" for="if-help-toggle">
+                  <span class="component-title">Show help text</span>
+                  <input id="if-help-toggle" type="checkbox" aria-label="Show help text" />
+                </label>
+
+              </div>
+
+              <!-- Preview -->
+              <div class="statbox-preview-wrap" style="align-items:flex-start;min-height:auto;padding:var(--sp-16);">
+                <div id="if-preview" class="inputField ds-component-preview--list">
+
+                  <!-- Label row -->
+                  <div class="inputField-labelRow">
+                    <p class="inputField-label">Price</p>
+                    <span id="if-preview-optional" class="inputField-optional hidden">(Optional)</span>
+                    <span id="if-preview-spacer" class="inputField-spacer hidden"></span>
+                    <button id="if-preview-help" class="inputField-help hidden" type="button">Help?</button>
+                  </div>
+
+                  <!-- Box -->
+                  <div class="inputField-box">
+                    <!-- Calendar icon — String type only -->
+                    <span id="if-preview-icon" class="inputField-icon" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </span>
+                    <!-- Minus stepper — Amount + focus states only -->
+                    <button id="if-preview-dec" class="inputField-stepper inputField-stepper--dec" type="button" aria-label="Decrease">
+                      <svg width="14" height="2" viewBox="0 0 14 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="1"/></svg>
+                    </button>
+                    <!-- Input -->
+                    <input id="if-preview-input" class="inputField-input" type="text" placeholder="DD / MM / YYYY" />
+                    <!-- Plus stepper — Amount + focus states only -->
+                    <button id="if-preview-inc" class="inputField-stepper inputField-stepper--inc" type="button" aria-label="Increase">
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
+                    </button>
+                  </div>
+
+                  <!-- Error message -->
+                  <p id="if-preview-error" class="inputField-errorMsg hidden">Please enter a valid value</p>
+
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /section InputField -->
+
+          <!-- DropdownField -->
+          <div id="section-dropdownfield" class="section">
+            <h2 class="section-title">Dropdown field</h2>
+
+            <div class="component-card statbox-playground" style="grid-column:1/-1;">
+              <div class="statbox-controls">
+
+                <div class="statbox-control-group">
+                  <p class="component-title">State</p>
+                  <select id="df-state-select" class="ds-select" aria-label="Dropdown field state">
+                    <option value="default">Default</option>
+                    <option value="focus">Focus (Open)</option>
+                    <option value="filled">Filled</option>
+                    <option value="error">Filled Error</option>
+                    <option value="focus-error">Focus Error</option>
+                    <option value="disabled">Disabled</option>
+                  </select>
+                </div>
+
+                <label class="toggle-row" for="df-optional-toggle">
+                  <span class="component-title">Show Optional</span>
+                  <input id="df-optional-toggle" type="checkbox" aria-label="Show optional text" />
+                </label>
+                <label class="toggle-row" for="df-help-toggle">
+                  <span class="component-title">Show help text</span>
+                  <input id="df-help-toggle" type="checkbox" aria-label="Show help text" />
+                </label>
+
+              </div>
+
+              <div class="statbox-preview-wrap" style="align-items:flex-start;min-height:auto;padding:var(--sp-16);overflow:visible;">
+                <div id="df-preview" class="dropdownField ds-component-preview--list">
+
+                  <!-- Label row -->
+                  <div class="inputField-labelRow">
+                    <p class="inputField-label">Currency</p>
+                    <span id="df-preview-optional" class="inputField-optional hidden">(Optional)</span>
+                    <span id="df-preview-spacer" class="inputField-spacer hidden"></span>
+                    <button id="df-preview-help" class="inputField-help hidden" type="button">Help?</button>
+                  </div>
+
+                  <!-- Trigger box -->
+                  <div class="dropdownField-box" id="df-preview-box" role="combobox" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="dropdownField-value" id="df-preview-value">Select currency</span>
+                    <span class="dropdownField-chevron" aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                    </span>
+                  </div>
+
+                  <!-- Option panel -->
+                  <div class="dropdownField-panel" role="listbox" aria-label="Currency options">
+                    <div class="dropdownField-option dropdownField-option--selected" role="option" data-df-value="USD" aria-selected="true">
+                      <span>US Dollar (USD)</span>
+                      <span class="dropdownField-optionCheck" aria-hidden="true"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 5.5 5 9.5 13 1.5"/></svg></span>
+                    </div>
+                    <div class="dropdownField-option" role="option" data-df-value="SGD" aria-selected="false">
+                      <span>Singapore Dollar (SGD)</span>
+                      <span class="dropdownField-optionCheck" aria-hidden="true"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 5.5 5 9.5 13 1.5"/></svg></span>
+                    </div>
+                    <div class="dropdownField-option" role="option" data-df-value="HKD" aria-selected="false">
+                      <span>Hong Kong Dollar (HKD)</span>
+                      <span class="dropdownField-optionCheck" aria-hidden="true"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 5.5 5 9.5 13 1.5"/></svg></span>
+                    </div>
+                    <div class="dropdownField-option" role="option" data-df-value="EUR" aria-selected="false">
+                      <span>Euro (EUR)</span>
+                      <span class="dropdownField-optionCheck" aria-hidden="true"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 5.5 5 9.5 13 1.5"/></svg></span>
+                    </div>
+                  </div>
+
+                  <!-- Error message -->
+                  <p id="df-preview-error" class="inputField-errorMsg hidden">Please select a valid option</p>
+
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /section DropdownField -->
+
+          <!-- SearchField -->
+          <div id="section-searchfield" class="section">
+            <h2 class="section-title">Search field</h2>
+
+            <div class="component-card statbox-playground" style="grid-column:1/-1;">
+              <div class="statbox-controls">
+
+                <div class="statbox-control-group">
+                  <p class="component-title">State</p>
+                  <div class="mini-tabs" role="tablist" aria-label="Search field state">
+                    <button class="mini-tab is-active" type="button" data-sf-state="default">Default</button>
+                    <button class="mini-tab" type="button" data-sf-state="focus">Focus</button>
+                    <button class="mini-tab" type="button" data-sf-state="filled">Filled</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="statbox-preview-wrap" style="align-items:center;min-height:auto;padding:var(--sp-16);">
+                <div id="sf-preview" class="searchField ds-component-preview--list">
+                  <span class="searchField-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  </span>
+                  <input id="sf-preview-input" class="searchField-input" type="search" placeholder="Search products…" autocomplete="off" />
+                  <button id="sf-preview-clear" class="searchField-clear" type="button" aria-label="Clear search">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /section SearchField -->
+
+          <!-- TextboxField -->
+          <div id="section-textboxfield" class="section">
+            <h2 class="section-title">Textbox field</h2>
+
+            <div class="component-card statbox-playground" style="grid-column:1/-1;">
+              <div class="statbox-controls">
+
+                <div class="statbox-control-group">
+                  <p class="component-title">State</p>
+                  <select id="tf-state-select" class="ds-select" aria-label="Textbox field state">
+                    <option value="default">Default</option>
+                    <option value="focus">Focus</option>
+                    <option value="filled">Filled</option>
+                    <option value="error">Filled Error</option>
+                    <option value="focus-error">Focus Error</option>
+                    <option value="disabled">Disabled</option>
+                  </select>
+                </div>
+
+                <label class="toggle-row" for="tf-optional-toggle">
+                  <span class="component-title">Show Optional</span>
+                  <input id="tf-optional-toggle" type="checkbox" aria-label="Show optional text" />
+                </label>
+                <label class="toggle-row" for="tf-help-toggle">
+                  <span class="component-title">Show help text</span>
+                  <input id="tf-help-toggle" type="checkbox" aria-label="Show help text" />
+                </label>
+                <label class="toggle-row" for="tf-counter-toggle">
+                  <span class="component-title">Show counter</span>
+                  <input id="tf-counter-toggle" type="checkbox" checked aria-label="Show character counter" />
+                </label>
+
+              </div>
+
+              <div class="statbox-preview-wrap" style="align-items:flex-start;min-height:auto;padding:var(--sp-16);">
+                <div id="tf-preview" class="textboxField ds-component-preview--list">
+
+                  <!-- Label row -->
+                  <div class="inputField-labelRow">
+                    <p class="inputField-label">Notes</p>
+                    <span id="tf-preview-optional" class="inputField-optional hidden">(Optional)</span>
+                    <span id="tf-preview-spacer" class="inputField-spacer hidden"></span>
+                    <button id="tf-preview-help" class="inputField-help hidden" type="button">Help?</button>
+                  </div>
+
+                  <!-- Textarea box -->
+                  <div class="textboxField-box">
+                    <textarea id="tf-preview-textarea" class="textboxField-textarea" placeholder="Enter your notes here…" maxlength="300" rows="4"></textarea>
+                    <div id="tf-preview-footer" class="textboxField-footer">
+                      <span id="tf-preview-counter" class="textboxField-counter">0/300</span>
+                    </div>
+                  </div>
+
+                  <!-- Error message -->
+                  <p id="tf-preview-error" class="inputField-errorMsg hidden">Notes cannot be empty</p>
+
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /section TextboxField -->
+
+          <!-- CTA Button -->
+          <div id="section-ctabtn" class="section">
+            <h2 class="section-title">CTA button</h2>
+            <div class="component-card statbox-playground" style="grid-column:1/-1;">
+              <div class="statbox-controls">
+                <select id="btn-size-select" class="ds-select" aria-label="Button size">
+                  <option value="lg">LG</option>
+                  <option value="md">MD</option>
+                  <option value="sm">SM</option>
+                </select>
+                <select id="btn-state-select" class="ds-select" aria-label="Button state">
+                  <option value="default">Default</option>
+                  <option value="hover">Hover</option>
+                  <option value="active">Active</option>
+                  <option value="disabled">Disabled</option>
+                </select>
+              </div>
+              <div class="statbox-preview-wrap btn-preview-row">
+                <button id="btn-primary" class="cta-btn cta-btn--primary cta-btn--lg" type="button">Buy Now</button>
+                <button id="btn-danger"  class="cta-btn cta-btn--danger  cta-btn--lg" type="button">Sell Now</button>
+                <button id="btn-dark"    class="cta-btn cta-btn--dark    cta-btn--lg" type="button">
+                  <span class="cta-btn-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7H6C6.53043 7 7.03914 6.78929 7.41421 6.41421C7.78929 6.03914 8 5.53043 8 5C8 4.73478 8.10536 4.48043 8.29289 4.29289C8.48043 4.10536 8.73478 4 9 4H15C15.2652 4 15.5196 4.10536 15.7071 4.29289C15.8946 4.48043 16 4.73478 16 5C16 5.53043 16.2107 6.03914 16.5858 6.41421C16.9609 6.78929 17.4696 7 18 7H19C19.5304 7 20.0391 7.21071 20.4142 7.58579C20.7893 7.96086 21 8.46957 21 9V18C21 18.5304 20.7893 19.0391 20.4142 19.4142C20.0391 19.7893 19.5304 20 19 20H5C4.46957 20 3.96086 19.7893 3.58579 19.4142C3.21071 19.0391 3 18.5304 3 18V9C3 8.46957 3.21071 7.96086 3.58579 7.58579C3.96086 7.21071 4.46957 7 5 7Z"/><path d="M9 13C9 13.7956 9.31607 14.5587 9.87868 15.1213C10.4413 15.6839 11.2044 16 12 16C12.7956 16 13.5587 15.6839 14.1213 15.1213C14.6839 14.5587 15 13.7956 15 13C15 12.2044 14.6839 11.4413 14.1213 10.8787C13.5587 10.3161 12.7956 10 12 10C11.2044 10 10.4413 10.3161 9.87868 10.8787C9.31607 11.4413 9 12.2044 9 13Z"/></svg></span>
+                  Take a Photo
+                </button>
+                <button id="btn-outline" class="cta-btn cta-btn--outline cta-btn--lg" type="button">
+                  <span class="cta-btn-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17V19C4 19.5304 4.21071 20.0391 4.58579 20.4142C4.96086 20.7893 5.46957 21 6 21H18C18.5304 21 19.0391 20.7893 19.4142 20.4142C19.7893 20.0391 20 19.5304 20 19V17M17 9L12 4L7 9M12 4V16"/></svg></span>
+                  Upload a File
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="section-collapsible" class="section">
+            <h2 class="section-title">Collapsible section</h2>
+            <div class="component-card">
+              <div class="statbox-controls">
+                <label class="toggle-row" for="cs-expanded-toggle">
+                  <span class="component-title">Expanded</span>
+                  <input id="cs-expanded-toggle" type="checkbox" checked aria-label="Toggle section expanded" />
+                </label>
+              </div>
+              <div class="statbox-preview-wrap keyValue-preview-wrap ds-component-preview--list">
+                <details id="cs-preview" class="collapsibleSection collapsibleSection--dsPreview" open>
+                  <summary class="collapsibleSection-summary">
+                    <span class="collapsibleSection-title">Section title</span>
+                    <span class="collapsibleSection-chevron" aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 15l6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="collapsibleSection-body">
+                    <p style="margin:0;font-size:var(--fs-12);line-height:var(--lh-12);color:var(--text-muted);">Body slot: any markup (e.g. KeyValueRow list, forms, rich text).</p>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+          </div><!-- /ds-main -->
+        </div><!-- /ds-layout -->
+      </div><!-- /panel-components -->
+    </section>
+
+    <!-- Sidebar link -->
+    <button class="ds-link" id="ds-sidebar-link" aria-label="Open design system">
+      <span>Design system</span>
+      <span class="arrow" aria-hidden="true">›</span>
+    </button>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
