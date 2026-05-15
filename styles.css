@@ -2036,6 +2036,26 @@ html, body {
   width: 100%;
   max-width: 296px;
 }
+.order-limit-cols {
+  display: flex;
+  flex-direction: row;
+  gap: var(--sp-12);
+  width: 100%;
+}
+.order-limit-cols .order-field-group {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.order-limit-cols .inputField {
+  width: 100%;
+}
+.order-field-currency {
+  font-size: var(--fs-12);
+  color: var(--text-light);
+  font-weight: 400;
+}
 .order-footer {
   flex-shrink: 0;
   background: var(--surface-white);

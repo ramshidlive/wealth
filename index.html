@@ -56,7 +56,7 @@
             </span>
           </div>
           <div class="order-price-row">
-            <span class="order-price-main">4,523.75</span>
+            <span class="order-price-main">452</span>
             <span class="order-price-currency">SGD</span>
             <span class="order-last-updated">
               Last updated at 2:15 PM
@@ -78,10 +78,10 @@
           </div>
         </nav>
 
-        <!-- Body -->
-        <div class="order-body">
+        <!-- Body: Market panel -->
+        <div class="order-body" id="order-panel-market">
           <p class="order-qty-label">Quantity</p>
-          <div class="order-qty-field inputField inputField--amount inputField--focus">
+          <div class="order-qty-field inputField inputField--amount" id="order-mkt-field">
             <div class="inputField-box">
               <button class="inputField-stepper inputField-stepper--dec" type="button" aria-label="Decrease" id="order-dec">
                 <svg width="14" height="2" viewBox="0 0 14 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="13" y2="1"/></svg>
@@ -91,6 +91,43 @@
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
               </button>
             </div>
+          </div>
+        </div>
+
+        <!-- Body: Limit panel -->
+        <div class="order-body hidden" id="order-panel-limit">
+          <div class="order-limit-cols">
+
+            <div class="order-field-group">
+              <p class="order-qty-label">Limit Price <span class="order-field-currency">SGD</span></p>
+              <div class="inputField inputField--amount" id="order-lmt-price-field">
+                <div class="inputField-box">
+                  <button class="inputField-stepper inputField-stepper--dec" type="button" aria-label="Decrease price" id="order-price-dec">
+                    <svg width="14" height="2" viewBox="0 0 14 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="13" y2="1"/></svg>
+                  </button>
+                  <input id="order-price-input" class="inputField-input" type="text" value="452" inputmode="numeric" aria-label="Limit price"/>
+                  <button class="inputField-stepper inputField-stepper--inc" type="button" aria-label="Increase price" id="order-price-inc">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-field-group">
+              <p class="order-qty-label">Quantity</p>
+              <div class="inputField inputField--amount" id="order-lmt-qty-field">
+                <div class="inputField-box">
+                  <button class="inputField-stepper inputField-stepper--dec" type="button" aria-label="Decrease" id="order-lmt-dec">
+                    <svg width="14" height="2" viewBox="0 0 14 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="1" y1="1" x2="13" y2="1"/></svg>
+                  </button>
+                  <input id="order-lmt-qty-input" class="inputField-input" type="text" value="999" inputmode="numeric" aria-label="Quantity"/>
+                  <button class="inputField-stepper inputField-stepper--inc" type="button" aria-label="Increase" id="order-lmt-inc">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 

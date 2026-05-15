@@ -752,41 +752,156 @@ initTabVariant(document.getElementById('order-tv'));
 tvRefresh = initTabVariant(document.getElementById('tv-preview'));
 
 // ---------- Order screen ----------
-const orderQtyInput  = document.getElementById('order-qty-input');
-const orderDecBtn    = document.getElementById('order-dec');
-const orderIncBtn    = document.getElementById('order-inc');
-const orderEstTotal  = document.getElementById('order-est-total');
-const ORDER_PRICE    = 4523.75;
+const orderQtyInput    = document.getElementById('order-qty-input');
+const orderDecBtn      = document.getElementById('order-dec');
+const orderIncBtn      = document.getElementById('order-inc');
+const orderEstTotal    = document.getElementById('order-est-total');
+const orderPanelMkt    = document.getElementById('order-panel-market');
+const orderPanelLmt    = document.getElementById('order-panel-limit');
+const orderLmtQtyInput = document.getElementById('order-lmt-qty-input');
+const orderPriceInput  = document.getElementById('order-price-input');
+const orderPriceDecBtn = document.getElementById('order-price-dec');
+const orderPriceIncBtn = document.getElementById('order-price-inc');
+const orderLmtDecBtn   = document.getElementById('order-lmt-dec');
+const orderLmtIncBtn   = document.getElementById('order-lmt-inc');
+const MARKET_PRICE     = 452;
+const BALANCE_USD      = 1287012;
 
-function orderParseQty() {
-  const n = parseInt((orderQtyInput?.value || '0').replace(/,/g, ''), 10);
+let orderMode = 'market';
+
+function parseNum(el) {
+  const n = parseFloat((el?.value || '0').replace(/,/g, ''));
   return Number.isNaN(n) ? 0 : Math.max(0, n);
 }
+
 function orderUpdateTotal() {
   if (!orderEstTotal) return;
-  const total = orderParseQty() * ORDER_PRICE;
-  orderEstTotal.textContent = Math.round(total).toLocaleString('en-US');
+  const qty   = orderMode === 'market' ? parseNum(orderQtyInput) : parseNum(orderLmtQtyInput);
+  const price = orderMode === 'market' ? MARKET_PRICE : parseNum(orderPriceInput);
+  orderEstTotal.textContent = Math.round(qty * price).toLocaleString('en-US');
 }
-function orderStep(delta) {
-  if (!orderQtyInput) return;
-  const next = Math.max(0, orderParseQty() + delta);
-  orderQtyInput.value = next.toLocaleString('en-US');
+
+// Manages focus/blur CSS states and input validation for order screen fields.
+// type: 'integer' | 'decimal'
+function wireOrderInput(input, type) {
+  const field = input?.closest('.inputField');
+  if (!input || !field) return;
+
+  // Set initial state: filled if has value and not already focused
+  if (input.value.trim() && !field.classList.contains('inputField--focus')) {
+    field.classList.add('inputField--filled');
+  }
+
+  input.addEventListener('focus', () => {
+    field.classList.add('inputField--focus');
+    field.classList.remove('inputField--filled');
+    // Strip commas for clean editing
+    input.value = input.value.replace(/,/g, '');
+    input.select();
+  });
+
+  input.addEventListener('blur', () => {
+    field.classList.remove('inputField--focus');
+    const raw = input.value.replace(/,/g, '').trim();
+    if (raw !== '') {
+      field.classList.add('inputField--filled');
+      if (type === 'integer') {
+        const n = parseInt(raw, 10);
+        input.value = Number.isNaN(n) ? '' : n.toLocaleString('en-US');
+      } else {
+        const n = parseFloat(raw);
+        input.value = Number.isNaN(n) ? '' : n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+    } else {
+      field.classList.remove('inputField--filled');
+    }
+    orderUpdateTotal();
+  });
+
+  // Block invalid characters
+  input.addEventListener('keydown', e => {
+    const allowed = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter', 'Home', 'End'];
+    if (allowed.includes(e.key)) return;
+    if (e.metaKey || e.ctrlKey) return; // allow copy/paste shortcuts
+    if (type === 'integer' && !/^\d$/.test(e.key)) { e.preventDefault(); return; }
+    if (type === 'decimal' && !/^\d$/.test(e.key) && e.key !== '.') { e.preventDefault(); return; }
+    // Only one decimal point
+    if (type === 'decimal' && e.key === '.' && input.value.includes('.')) e.preventDefault();
+  });
+
+  // Strip anything invalid that gets through (e.g. paste)
+  input.addEventListener('input', () => {
+    const sel = input.selectionStart;
+    let cleaned;
+    if (type === 'integer') {
+      cleaned = input.value.replace(/[^\d]/g, '');
+    } else {
+      cleaned = input.value.replace(/[^\d.]/g, '');
+      const dot = cleaned.indexOf('.');
+      if (dot !== -1) cleaned = cleaned.slice(0, dot + 1) + cleaned.slice(dot + 1).replace(/\./g, '');
+    }
+    if (input.value !== cleaned) {
+      input.value = cleaned;
+      input.setSelectionRange(sel - 1, sel - 1);
+    }
+    orderUpdateTotal();
+  });
+}
+
+wireOrderInput(orderQtyInput,    'integer');
+wireOrderInput(orderPriceInput,  'integer');
+wireOrderInput(orderLmtQtyInput, 'integer');
+
+// Steppers — prevent blur on mousedown, update on click
+function makeStep(input, delta, type) {
+  const raw = parseFloat(input.value.replace(/,/g, '')) || 0;
+  const next = Math.max(0, type === 'decimal'
+    ? Math.round((raw + delta) * 100) / 100
+    : Math.round(raw + delta));
+  const field = input.closest('.inputField');
+  input.value = type === 'decimal'
+    ? next.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    : next.toLocaleString('en-US');
+  field?.classList.add('inputField--filled');
   orderUpdateTotal();
 }
 
-orderDecBtn?.addEventListener('mousedown', e => e.preventDefault());
-orderIncBtn?.addEventListener('mousedown', e => e.preventDefault());
-orderDecBtn?.addEventListener('click', () => orderStep(-1));
-orderIncBtn?.addEventListener('click', () => orderStep(1));
-orderQtyInput?.addEventListener('input', orderUpdateTotal);
-orderUpdateTotal();
+[orderDecBtn, orderIncBtn, orderPriceDecBtn, orderPriceIncBtn, orderLmtDecBtn, orderLmtIncBtn]
+  .forEach(btn => btn?.addEventListener('mousedown', e => e.preventDefault()));
 
+orderDecBtn?.addEventListener('click',      () => makeStep(orderQtyInput,    -1,     'integer'));
+orderIncBtn?.addEventListener('click',      () => makeStep(orderQtyInput,    +1,     'integer'));
+orderPriceDecBtn?.addEventListener('click', () => makeStep(orderPriceInput,  -1, 'integer'));
+orderPriceIncBtn?.addEventListener('click', () => makeStep(orderPriceInput,  +1, 'integer'));
+orderLmtDecBtn?.addEventListener('click',   () => makeStep(orderLmtQtyInput, -1,     'integer'));
+orderLmtIncBtn?.addEventListener('click',   () => makeStep(orderLmtQtyInput, +1,     'integer'));
+
+// Tab switching
+function switchOrderMode(mode) {
+  orderMode = mode;
+  orderPanelMkt?.classList.toggle('hidden', mode !== 'market');
+  orderPanelLmt?.classList.toggle('hidden', mode !== 'limit');
+  orderUpdateTotal();
+}
+
+document.getElementById('order-tv')?.querySelectorAll('[data-tv-index]').forEach(btn => {
+  btn.addEventListener('click', () => switchOrderMode(btn.dataset.tvIndex === '0' ? 'market' : 'limit'));
+});
+
+// Use Max
 document.querySelector('.order-use-max')?.addEventListener('click', () => {
-  if (!orderQtyInput) return;
-  const maxQty = Math.floor(1287012 / ORDER_PRICE);
-  orderQtyInput.value = maxQty.toLocaleString('en-US');
+  if (orderMode === 'market') {
+    const qty = Math.floor(BALANCE_USD / MARKET_PRICE);
+    if (orderQtyInput) { orderQtyInput.value = qty.toLocaleString('en-US'); document.getElementById('order-mkt-field')?.classList.add('inputField--filled'); }
+  } else {
+    const price = parseNum(orderPriceInput) || MARKET_PRICE;
+    const qty = Math.floor(BALANCE_USD / price);
+    if (orderLmtQtyInput) { orderLmtQtyInput.value = qty.toLocaleString('en-US'); document.getElementById('order-lmt-qty-field')?.classList.add('inputField--filled'); }
+  }
   orderUpdateTotal();
 });
+
+orderUpdateTotal();
 
 // ---------- RadioListItem playground ----------
 const rliDividerToggle = document.getElementById('rli-divider-toggle');
