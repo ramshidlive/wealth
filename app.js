@@ -202,6 +202,8 @@ const statBoxPreview = document.getElementById('statbox-preview');
 const statBoxValue = document.getElementById('statbox-value');
 const statBoxFrequency = document.getElementById('statbox-frequency');
 const statBoxFrequencyToggle = document.getElementById('statbox-frequency-toggle');
+const statBoxIconToggle = document.getElementById('statbox-icon-toggle');
+const statBoxIcon = document.getElementById('statbox-icon');
 const statBoxSizeTabs = Array.from(document.querySelectorAll('[data-statbox-size]'));
 const statBoxAlignTabs = Array.from(document.querySelectorAll('[data-statbox-align]'));
 
@@ -210,6 +212,7 @@ function updateStatBoxPreview() {
   const activeSize = statBoxSizeTabs.find(tab => tab.classList.contains('is-active'))?.dataset.statboxSize || 'small';
   const activeAlign = statBoxAlignTabs.find(tab => tab.classList.contains('is-active'))?.dataset.statboxAlign || 'left';
   const showFrequency = Boolean(statBoxFrequencyToggle?.checked);
+  const showIcon = Boolean(statBoxIconToggle?.checked);
 
   statBoxPreview.classList.remove('statBox--small', 'statBox--medium', 'statBox--large', 'statBox--center', 'statBox--right');
   if (activeSize === 'medium') statBoxPreview.classList.add('statBox--medium');
@@ -224,6 +227,7 @@ function updateStatBoxPreview() {
     else statBoxValue.textContent = "09 Apr '26";
   }
   if (statBoxFrequency) statBoxFrequency.classList.toggle('hidden', !showFrequency);
+  if (statBoxIcon) statBoxIcon.classList.toggle('hidden', !showIcon);
 }
 
 statBoxSizeTabs.forEach(tab => {
@@ -241,6 +245,7 @@ statBoxAlignTabs.forEach(tab => {
 });
 
 bindToggle(statBoxFrequencyToggle, updateStatBoxPreview);
+bindToggle(statBoxIconToggle, updateStatBoxPreview);
 updateStatBoxPreview();
 
 function bindMiniTabs(tabs, onChange) {
@@ -889,7 +894,7 @@ document.getElementById('order-tv')?.querySelectorAll('[data-tv-index]').forEach
 });
 
 // Use Max
-document.querySelector('.order-use-max')?.addEventListener('click', () => {
+document.getElementById('order-use-max')?.addEventListener('click', () => {
   if (orderMode === 'market') {
     const qty = Math.floor(BALANCE_USD / MARKET_PRICE);
     if (orderQtyInput) { orderQtyInput.value = qty.toLocaleString('en-US'); document.getElementById('order-mkt-field')?.classList.add('inputField--filled'); }
