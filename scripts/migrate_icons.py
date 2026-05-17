@@ -168,7 +168,7 @@ def migrate_file(path):
 
 def main():
     total = 0
-    for name in ("index.html", "prototype.html"):
+    for name in ("index.html",):
         p = ROOT / name
         n = migrate_file(p)
         remaining = len(re.findall(r"<svg", p.read_text()))
